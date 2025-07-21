@@ -8,12 +8,13 @@ First, install Termux from F-Droid (recommended) or Google Play Store, then set 
 # Update packages
 pkg update && pkg upgrade
 
-# Install Node.js and essential tools
-pkg install nodejs git
+# Install Node.js, Python, and essential tools
+pkg install nodejs python git
 
 # Verify installation
 node --version
 npm --version
+python --version
 ```
 
 ## Installation Steps
@@ -53,6 +54,17 @@ HOST=0.0.0.0 npm run dev
 The app will be available at:
 - Local: `http://localhost:5000`  
 - Network: `http://[your-ip]:5000`
+
+5. **Optional: Set up Comic Text Detector for real OCR**:
+```bash
+# Install Comic Text Detector (requires ~200MB download)
+./install-comic-detector.sh
+
+# Start both services together
+./start-with-ocr.sh
+```
+
+This enables real manga text detection instead of mock data.
 
 ## Termux-Specific Optimizations
 
@@ -98,21 +110,27 @@ npm run dev
 
 ## Optional Enhancements
 
-### Using Real OCR (when available)
-The app is designed to easily integrate Comic Text Detector or other OCR services:
+### Real OCR with Comic Text Detector
+The app includes integration with the Comic Text Detector for authentic manga/comic text detection:
 
-```javascript
-// In client/src/lib/ocr-service.ts
-export async function detectText(imageUrl: string) {
-  // Replace mock implementation with real OCR API call
-  const response = await fetch('/api/ocr', {
-    method: 'POST',
-    body: JSON.stringify({ imageUrl }),
-    headers: { 'Content-Type': 'application/json' }
-  });
-  return response.json();
-}
+```bash
+# One-time setup (downloads ~200MB of models)
+./install-comic-detector.sh
+
+# Start with real OCR enabled
+./start-with-ocr.sh
 ```
+
+**Features:**
+- Detects text regions in manga/comic images using deep learning
+- Trained on 13,000+ anime/comic images
+- Provides accurate bounding boxes and confidence scores
+- Automatically falls back to mock data if unavailable
+
+**Requirements:**
+- Python 3.7+ with pip
+- ~300MB disk space for models and dependencies
+- Works on CPU (GPU optional for faster processing)
 
 ### Port Configuration
 To run on a different port:

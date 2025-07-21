@@ -140,29 +140,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ error: "Project not found" });
       }
 
-      // Mock OCR detection for now - in production, integrate with Comic Text Detector
-      const mockDetections = [
-        {
-          x: Math.floor(project.width * 0.15),
-          y: Math.floor(project.height * 0.1),
-          width: Math.floor(project.width * 0.3),
-          height: Math.floor(project.height * 0.08),
-          originalText: "Sample detected text",
-          confidence: 87,
-        },
-        {
-          x: Math.floor(project.width * 0.55),
-          y: Math.floor(project.height * 0.25),
-          width: Math.floor(project.width * 0.35),
-          height: Math.floor(project.height * 0.06),
-          originalText: "Another text block",
-          confidence: 92,
-        },
-      ];
+      let detections = [];
+      let detectorUsed = "mock";
+
+      // Try to use real Comic Text Detector service
+      try {
+        const ocrResponse = await fetch('http://localhost:5001/detect_url', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image_url: project.originalImageUrl })
+        });
+
+        if (ocrResponse.ok) {
+          const ocrResult = await ocrResponse.json();
+          if (ocrResult.success && ocrResult.text_boxes) {
+            // Convert Comic Text Detector format to our format
+            detections = ocrResult.text_boxes.map((box: any) => ({
+              x: box.x,
+              y: box.y,
+              width: box.width,
+              height: box.height,
+              originalText: box.text || "Detected text",
+              confidence: Math.round((box.confidence || 0.8) * 100),
+            }));
+            detectorUsed = "comic-text-detector";
+            console.log(`Comic Text Detector found ${detections.length} text regions`);
+          }
+        }
+      } catch (ocrError) {
+        console.log("Comic Text Detector not available:", ocrError instanceof Error ? ocrError.message : String(ocrError));
+      }
+
+      // Fallback to mock data if OCR service not available
+      if (detections.length === 0) {
+        detections = [
+          {
+            x: Math.floor(project.width * 0.15),
+            y: Math.floor(project.height * 0.1),
+            width: Math.floor(project.width * 0.3),
+            height: Math.floor(project.height * 0.08),
+            originalText: "Sample detected text",
+            confidence: 87,
+          },
+          {
+            x: Math.floor(project.width * 0.55),
+            y: Math.floor(project.height * 0.25),
+            width: Math.floor(project.width * 0.35),
+            height: Math.floor(project.height * 0.06),
+            originalText: "Another text block",
+            confidence: 92,
+          },
+        ];
+        console.log("Using mock OCR data");
+      }
 
       // Create text boxes for detections
       const textBoxes = [];
-      for (const detection of mockDetections) {
+      for (const detection of detections) {
         const textBoxData = insertTextBoxSchema.parse({
           projectId: id,
           ...detection,
@@ -171,7 +205,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         textBoxes.push(textBox);
       }
 
-      res.json(textBoxes);
+      res.json({ textBoxes, detectorUsed });
     } catch (error) {
       console.error("Error processing OCR:", error);
       res.status(500).json({ error: "Failed to process OCR" });

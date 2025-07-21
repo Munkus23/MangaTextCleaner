@@ -17,7 +17,9 @@ export function useOCR() {
   const ocrMutation = useMutation({
     mutationFn: async (projectId: number): Promise<OCRResult[]> => {
       const response = await apiRequest("POST", `/api/projects/${projectId}/ocr`, null);
-      return response.json();
+      const result = await response.json();
+      // Handle both old format (array) and new format (object with textBoxes)
+      return result.textBoxes || result;
     },
     onSuccess: () => {
       toast({

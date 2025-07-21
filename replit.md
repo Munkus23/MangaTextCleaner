@@ -33,7 +33,9 @@ Preferred communication style: Simple, everyday language.
 - **Responsive Design**: Mobile-first approach with touch-friendly controls
 
 #### OCR Integration
-- **Text Detection Service**: Modular OCR service (currently mocked, ready for external API)
+- **Comic Text Detector**: Real manga/comic text detection using dmMaze/comic-text-detector
+- **Python Microservice**: Separate Python service for OCR processing with Flask API
+- **Automatic Fallback**: Falls back to mock data if Comic Text Detector unavailable
 - **Confidence Scoring**: OCR results include confidence levels for detected text
 - **Bounding Box Detection**: Precise text region coordinates for overlay positioning
 
