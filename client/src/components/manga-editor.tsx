@@ -98,21 +98,11 @@ export default function MangaEditor() {
   });
 
   const handleFileUpload = useCallback((file: File) => {
-    if (!file) {
-      console.error("No file provided to handleFileUpload");
-      return;
-    }
+    if (!file) return;
 
-    console.log("Creating FormData with file:", file.name, file.type, file.size);
     const formData = new FormData();
     formData.append("image", file);
     formData.append("name", file.name.replace(/\.[^/.]+$/, ""));
-    
-    // Log FormData contents
-    console.log("FormData entries:");
-    formData.forEach((value, key) => {
-      console.log("FormData entry:", key, value);
-    });
     
     uploadMutation.mutate(formData);
   }, [uploadMutation]);

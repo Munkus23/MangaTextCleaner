@@ -14,16 +14,20 @@ export async function apiRequest(
 ): Promise<Response> {
   const isFormData = data instanceof FormData;
   
-  console.log("Making API request:", method, url, isFormData ? "FormData" : typeof data);
-  
-  const res = await fetch(url, {
+  const requestInit: RequestInit = {
     method,
-    headers: isFormData ? {} : data ? { "Content-Type": "application/json" } : {},
-    body: isFormData ? data : data ? JSON.stringify(data) : undefined,
     credentials: "include",
-  });
+  };
 
-  console.log("API response status:", res.status);
+  if (isFormData) {
+    // Don't set Content-Type for FormData - let browser set it with boundary
+    requestInit.body = data;
+  } else if (data) {
+    requestInit.headers = { "Content-Type": "application/json" };
+    requestInit.body = JSON.stringify(data);
+  }
+
+  const res = await fetch(url, requestInit);
   await throwIfResNotOk(res);
   return res;
 }

@@ -78,6 +78,14 @@ Preferred communication style: Simple, everyday language.
 - **File Storage**: Local uploads directory for image storage
 - **In-memory Database**: Simple storage for rapid development iteration
 
+### Termux Deployment (Mobile)
+- **Fully Compatible**: Runs natively on Android via Termux
+- **No External Dependencies**: Uses local file storage and in-memory database
+- **Network Access**: Configurable host binding (0.0.0.0) for network access
+- **Installation**: Simple npm commands work directly in Termux
+- **Performance**: Optimized for mobile performance with canvas operations
+- **Startup Command**: `npm run dev` or custom host binding
+
 ### Production Considerations
 - **Build Process**: Vite builds optimized frontend bundle, esbuild bundles backend
 - **Static Assets**: Uploaded images served via Express static middleware

@@ -46,14 +46,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create manga project with image upload
   app.post("/api/projects", upload.single("image"), async (req: Request, res: Response) => {
     try {
-      console.log("Server received upload request");
-      console.log("File:", req.file);
-      console.log("Body:", req.body);
-      console.log("Content-Type:", req.headers['content-type']);
-      
       const file = req.file;
       if (!file) {
-        console.log("No file found in request");
         return res.status(400).json({ error: "Image file is required" });
       }
 
