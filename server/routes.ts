@@ -3,15 +3,24 @@ import express from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertMangaProjectSchema, insertTextBoxSchema } from "@shared/schema";
-import multer from "multer";
+import multer, { FileFilterCallback } from "multer";
 import path from "path";
 import fs from "fs";
 import { z } from "zod";
 
+// Extend Express Request type for multer
+declare global {
+  namespace Express {
+    interface Request {
+      file?: Express.Multer.File;
+    }
+  }
+}
+
 // Set up multer for file uploads
 const upload = multer({
   dest: "uploads/",
-  fileFilter: (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+  fileFilter: (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
     const allowedTypes = /jpeg|jpg|png/;
     const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype = allowedTypes.test(file.mimetype);
@@ -37,8 +46,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create manga project with image upload
   app.post("/api/projects", upload.single("image"), async (req: Request, res: Response) => {
     try {
-      const file = req.file as Express.Multer.File | undefined;
+      console.log("Server received upload request");
+      console.log("File:", req.file);
+      console.log("Body:", req.body);
+      console.log("Content-Type:", req.headers['content-type']);
+      
+      const file = req.file;
       if (!file) {
+        console.log("No file found in request");
         return res.status(400).json({ error: "Image file is required" });
       }
 

@@ -45,11 +45,11 @@ export default function MangaEditor() {
     };
   });
 
-  const { data: projects = [] } = useQuery({
+  const { data: projects = [] } = useQuery<MangaProject[]>({
     queryKey: ["/api/projects"],
   });
 
-  const { data: textBoxes = [] } = useQuery({
+  const { data: textBoxes = [] } = useQuery<TextBox[]>({
     queryKey: ["/api/projects", currentProject?.id, "textboxes"],
     enabled: !!currentProject,
   });
@@ -98,11 +98,21 @@ export default function MangaEditor() {
   });
 
   const handleFileUpload = useCallback((file: File) => {
-    if (!file) return;
+    if (!file) {
+      console.error("No file provided to handleFileUpload");
+      return;
+    }
 
+    console.log("Creating FormData with file:", file.name, file.type, file.size);
     const formData = new FormData();
     formData.append("image", file);
     formData.append("name", file.name.replace(/\.[^/.]+$/, ""));
+    
+    // Log FormData contents
+    console.log("FormData entries:");
+    formData.forEach((value, key) => {
+      console.log("FormData entry:", key, value);
+    });
     
     uploadMutation.mutate(formData);
   }, [uploadMutation]);
