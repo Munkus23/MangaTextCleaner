@@ -11,7 +11,7 @@ import {
   Play,
   CloudUpload
 } from "lucide-react";
-import TextOverlay from "./text-overlay";
+import TextOverlay from "@/components/text-overlay";
 import { useCanvas } from "@/hooks/use-canvas";
 
 interface CanvasEditorProps {

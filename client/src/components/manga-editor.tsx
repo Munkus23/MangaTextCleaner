@@ -7,10 +7,10 @@ import { type MangaProject, type TextBox } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BookOpen, Upload, Download, Settings, Wifi, WifiOff } from "lucide-react";
-import ToolsSidebar from "./tools-sidebar";
-import CanvasEditor from "./canvas-editor";
-import PropertiesPanel from "./properties-panel";
-import MobileTools from "./mobile-tools";
+import ToolsSidebar from "@/components/tools-sidebar";
+import CanvasEditor from "@/components/canvas-editor";
+import PropertiesPanel from "@/components/properties-panel";
+import MobileTools from "@/components/mobile-tools";
 
 export default function MangaEditor() {
   const [currentProject, setCurrentProject] = useState<MangaProject | null>(null);

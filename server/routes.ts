@@ -66,7 +66,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get all projects
-  app.get("/api/projects", async (req, res) => {
+  app.get("/api/projects", async (req: Request, res: Response) => {
     try {
       const projects = await storage.getAllProjects();
       res.json(projects);
@@ -77,7 +77,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get project by ID
-  app.get("/api/projects/:id", async (req, res) => {
+  app.get("/api/projects/:id", async (req: Request, res: Response) => {
     try {
       const id = parseInt(req.params.id);
       const project = await storage.getProject(id);
@@ -92,7 +92,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Update project
-  app.patch("/api/projects/:id", async (req, res) => {
+  app.patch("/api/projects/:id", async (req: Request, res: Response) => {
     try {
       const id = parseInt(req.params.id);
       const updates = req.body;
