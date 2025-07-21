@@ -1,0 +1,31 @@
+{
+  "name": "Manga Panel Editor",
+  "short_name": "Manga Editor",
+  "description": "Professional manga panel editor with OCR text detection",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366F1",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iNDAiIGZpbGw9IiM2MzY2RjEiLz4KPHBhdGggZD0iTTQ4IDY0aDMydjY0SDQ4VjY0eiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNOTYgNDhoMzJ2OTZIOTZWNDh6IiBmaWxsPSIjZmZmZmZmIi8+CjxwYXRoIGQ9Ik0xNDQgODBoMzJ2NDhoLTMyVjgweiIgZmlsbD0iI2ZmZmZmZiIvPgo8L3N2Zz4K",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTA0IiBmaWxsPSIjNjM2NkYxIi8+CjxwYXRoIGQ9Ik0xMjggMTY4aDg1djE3NmgtODVWMTY4eiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNMjU2IDEyOGg4NXYyNTZoLTg1VjEyOHoiIGZpbGw9IiNmZmZmZmYiLz4KPHN0aC BkPSJNMzg0IDIxNmg4NXYxMjhoLTg1VjIxNnoiIGZpbGw9IiNmZmZmZmYiLz4KPC9zdmc+Cg==",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["graphics", "productivity", "utilities"],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4MCIgaGVpZ2h0PSI3MjAiIHZpZXdCb3g9IjAgMCAxMjgwIDcyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEyODAiIGhlaWdodD0iNzIwIiBmaWxsPSIjZjlmYWZiIi8+Cjx0ZXh0IHg9IjY0MCIgeT0iMzYwIiBmaWxsPSIjNjM2NkYxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjQ4IiBmb250LWZhbWlseT0iSW50ZXIiPk1hbmdhIEVkaXRvciDigKMgU2NyZWVuc2hvdDwvdGV4dD4KPC9zdmc+Cg==",
+      "sizes": "1280x720",
+      "type": "image/svg+xml",
+      "form_factor": "wide"
+    }
+  ]
+}
